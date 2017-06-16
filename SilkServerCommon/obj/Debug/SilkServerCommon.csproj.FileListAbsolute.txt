@@ -1,0 +1,7 @@
+C:\Users\admin\Desktop\Projects\Silk Time\SilkServer\SilkServerCommon\bin\Debug\SilkServerCommon.dll
+C:\Users\admin\Desktop\Projects\Silk Time\SilkServer\SilkServerCommon\bin\Debug\SilkServerCommon.pdb
+C:\Users\admin\Desktop\Projects\Silk Time\SilkServer\SilkServerCommon\obj\Debug\SilkServerCommon.csprojResolveAssemblyReference.cache
+C:\Users\admin\Desktop\Projects\Silk Time\SilkServer\SilkServerCommon\obj\Debug\SilkServerCommon.dll
+C:\Users\admin\Desktop\Projects\Silk Time\SilkServer\SilkServerCommon\obj\Debug\SilkServerCommon.pdb
+C:\Users\admin\Desktop\Projects\Silk Time\SilkClient\Assets\Plugins\SilkServerCommon.dll
+C:\Users\admin\Desktop\Projects\Silk Time\SilkClient\Assets\Plugins\SilkServerCommon.pdb

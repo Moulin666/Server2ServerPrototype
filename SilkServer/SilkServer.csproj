@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF4FDC0F-009C-4357-9F39-4D32B7B98581}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SilkServer</RootNamespace>
+    <AssemblyName>SilkServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Photon SDK\deploy\SilkServerFolder\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ExitGames.Logging.Log4Net">
+      <HintPath>..\..\Photon SDK\lib\ExitGames.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGamesLibs">
+      <HintPath>..\..\Photon SDK\lib\ExitGamesLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Photon SDK\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Photon.SocketServer">
+      <HintPath>..\..\Photon SDK\lib\Photon.SocketServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonHostRuntimeInterfaces">
+      <HintPath>..\..\Photon SDK\lib\PhotonHostRuntimeInterfaces.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MasterServer\IncomingSubServerPeer.cs" />
+    <Compile Include="MasterServer\MasterServerSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>MasterServerSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="MasterServer\SubServerCollection.cs" />
+    <Compile Include="MasterServer\UnityClient.cs" />
+    <Compile Include="MasterServer\MasterServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server2Server\ErrorCode.cs" />
+    <Compile Include="Server2Server\Operations\OperationCode.cs" />
+    <Compile Include="Server2Server\Operations\RegisterSubServer.cs" />
+    <Compile Include="Server2Server\ParameterCode.cs" />
+    <Compile Include="Server2Server\ServerType.cs" />
+    <Compile Include="SubServer\Handlers\LoginServer\LoginRequestHandler.cs" />
+    <Compile Include="SubServer\Handlers\LoginServer\RegisterRequestHandler.cs" />
+    <Compile Include="SubServer\Handlers\PhotonEventHandler.cs" />
+    <Compile Include="SubServer\Handlers\PhotonRequestHandler.cs" />
+    <Compile Include="SubServer\Handlers\PhotonResponseHandler.cs" />
+    <Compile Include="SubServer\NHibernate\Maps\UserMap.cs" />
+    <Compile Include="SubServer\NHibernate\Models\User.cs" />
+    <Compile Include="SubServer\NHibernate\NHibernateHelper.cs" />
+    <Compile Include="SubServer\OutgoingMasterServerPeer.cs" />
+    <Compile Include="SubServer\Servers\GameServer.cs" />
+    <Compile Include="SubServer\Servers\LobbyServer.cs" />
+    <Compile Include="SubServer\Servers\LoginServer.cs" />
+    <Compile Include="SubServer\SubServer.cs" />
+    <Compile Include="SubServer\SubServerSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>SubServerSettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SubServer\Handlers\GameServer\" />
+    <Folder Include="SubServer\Handlers\LobbyServer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="log4net.config" />
+    <None Include="MasterServer\MasterServerSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>MasterServerSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="SubServer\SubServerSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>SubServerSettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SilkServerCommon\SilkServerCommon.csproj">
+      <Project>{efd0ee5f-e4bf-4a12-bbd9-cb258611cf5f}</Project>
+      <Name>SilkServerCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
