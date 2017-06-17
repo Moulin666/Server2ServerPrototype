@@ -49,19 +49,28 @@ namespace SilkServer.MasterServer
 						peer.Disconnect();
 						Remove(subServerPeer.ServerId.Value);
 
-						if (subServerPeer.ServerId.Value == LoginServer.ServerId)
+						if (LoginServer != null)
 						{
-							LoginServer = null;
+							if (subServerPeer.ServerId.Value == LoginServer.ServerId)
+							{
+								LoginServer = null;
+							}
 						}
 
-						if (subServerPeer.ServerId.Value == LobbyServer.ServerId)
+						if (LobbyServer != null)
 						{
-							LobbyServer = null;
+							if (subServerPeer.ServerId.Value == LobbyServer.ServerId)
+							{
+								LobbyServer = null;
+							}
 						}
 
-						if (subServerPeer.ServerId.Value == GameServer.ServerId)
+						if (GameServer != null)
 						{
-							GameServer = null;
+							if (subServerPeer.ServerId.Value == GameServer.ServerId)
+							{
+								GameServer = null;
+							}
 						}
 					}
 
@@ -105,7 +114,6 @@ namespace SilkServer.MasterServer
 			}
 
 			// ========================================================================= \\
-
 			if (LoginServer == null)
 			{
 				LoginServer =
@@ -128,7 +136,6 @@ namespace SilkServer.MasterServer
 			}
 
 			// ========================================================================= \\
-
 			if (LoginServer != null)
 			{
 				Log.Debug("LoginServer: " + LoginServer.ConnectionId);

@@ -96,7 +96,7 @@
     <Compile Include="SubServer\NHibernate\Maps\UserMap.cs" />
     <Compile Include="SubServer\NHibernate\Models\User.cs" />
     <Compile Include="SubServer\NHibernate\NHibernateHelper.cs" />
-    <Compile Include="SubServer\OutgoingMasterServerPeer.cs" />
+    <Compile Include="SubServer\OutgoingMasterServer.cs" />
     <Compile Include="SubServer\Servers\GameServer.cs" />
     <Compile Include="SubServer\Servers\LobbyServer.cs" />
     <Compile Include="SubServer\Servers\LoginServer.cs" />
