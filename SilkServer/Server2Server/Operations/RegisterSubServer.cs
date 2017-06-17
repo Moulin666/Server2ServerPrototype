@@ -10,7 +10,6 @@ namespace SilkServer.Server2Server.Operations
 		public RegisterSubServer(IRpcProtocol rpcProtocol, OperationRequest operationRequest)
 			: base(rpcProtocol, operationRequest)
 		{
-
 		}
 
 		public RegisterSubServer() { }

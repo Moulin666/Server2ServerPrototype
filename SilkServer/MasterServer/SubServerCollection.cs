@@ -88,7 +88,7 @@ namespace SilkServer.MasterServer
 			{
 				IncomingSubServerPeer peer = Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.Lobby).FirstOrDefault();
 
-				if (peer != null)
+				if(peer != null)
 				{
 					LobbyServer = peer;
 				}
@@ -123,8 +123,8 @@ namespace SilkServer.MasterServer
 			if (GameServer == null)
 			{
 				GameServer =
-				Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.GameServer).FirstOrDefault() ??
-				Values.Where(subServerPeer => (subServerPeer.ServerType & ServerType.GameServer) == ServerType.GameServer).FirstOrDefault();
+					Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.GameServer).FirstOrDefault() ??
+					Values.Where(subServerPeer => (subServerPeer.ServerType & ServerType.GameServer) == ServerType.GameServer).FirstOrDefault();
 			}
 
 			// ========================================================================= \\
@@ -134,9 +134,9 @@ namespace SilkServer.MasterServer
 				Log.Debug("LoginServer: " + LoginServer.ConnectionId);
 			}
 
-			if (LoginServer != null)
+			if (LobbyServer != null)
 			{
-				Log.Debug("LobbyServer: " + LoginServer.ConnectionId);
+				Log.Debug("LobbyServer: " + LobbyServer.ConnectionId);
 			}
 
 			if (GameServer != null)

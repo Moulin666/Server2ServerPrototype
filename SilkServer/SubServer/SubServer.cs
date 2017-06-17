@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using System.Threading;
 
-using SilkServer.SubServer.Handlers;
 using SilkServer.Server2Server;
 
 using Photon.SocketServer;
@@ -88,7 +87,7 @@ namespace SilkServer.SubServer
 
 		protected override PeerBase CreatePeer(InitRequest initRequest)
 		{
-			return null;
+			throw new NotImplementedException();
 		}
 
 		protected override void Setup()

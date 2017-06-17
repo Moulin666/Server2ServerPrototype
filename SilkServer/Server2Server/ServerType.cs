@@ -7,8 +7,8 @@ namespace SilkServer.Server2Server
 	{
 		Login = 1,
 
-		Lobby = 2,
+		GameServer = 2,
 
-		GameServer = 3
+		Lobby = 3
 	}
 }

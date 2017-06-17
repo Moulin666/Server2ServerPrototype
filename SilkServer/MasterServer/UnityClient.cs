@@ -39,7 +39,7 @@ namespace SilkServer.MasterServer
 
 			_server.ConnectedClients.Add(UserId, this);
 
-			Log.Info("Added new UnityClient" + initRequest.PhotonPeer.GetRemoteIP());
+			Log.Info("Added new UnityClient");
 		}
 
 		#endregion
@@ -48,6 +48,11 @@ namespace SilkServer.MasterServer
 
 		protected override void OnOperationRequest(OperationRequest operationRequest, SendParameters sendParameters)
 		{
+			if (Log.IsDebugEnabled)
+			{
+				Log.DebugFormat("OperationRequest received: {0}", operationRequest.OperationCode);
+			}
+
 			operationRequest.Parameters.Remove((byte)ParameterCode.UserId);
 			operationRequest.Parameters.Add((byte)ParameterCode.UserId, UserId.ToString());
 
@@ -56,6 +61,11 @@ namespace SilkServer.MasterServer
 				case ((byte)UnityClientCode.Login):
 					{
 						_server.SubServers.LoginServer.SendOperationRequest(operationRequest, sendParameters);
+						break;
+					}
+				case ((byte)UnityClientCode.Lobby):
+					{
+						_server.SubServers.LobbyServer.SendOperationRequest(operationRequest, sendParameters);
 						break;
 					}
 				case ((byte)UnityClientCode.Game):

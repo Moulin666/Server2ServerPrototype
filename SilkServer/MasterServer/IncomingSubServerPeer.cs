@@ -73,10 +73,16 @@ namespace SilkServer.MasterServer
 
 		protected override void OnEvent(IEventData eventData, SendParameters sendParameters)
 		{
+			throw new NotImplementedException();
 		}
 
 		protected override void OnOperationRequest(OperationRequest operationRequest, SendParameters sendParameters)
 		{
+			if (Log.IsDebugEnabled)
+			{
+				Log.DebugFormat("OnOperationRequest: pid={0}, op={1}", ConnectionId, operationRequest.OperationCode);
+			}
+
 			OperationResponse response = new OperationResponse();
 
 			switch ((OperationCode)operationRequest.OperationCode)
@@ -138,6 +144,7 @@ namespace SilkServer.MasterServer
 		{
 			if (operationResponse.Parameters.ContainsKey((byte)ParameterCode.UserId))
 			{
+
 				UnityClient client;
 
 				string UserId = operationResponse.Parameters[(byte)ParameterCode.UserId].ToString();

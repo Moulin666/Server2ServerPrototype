@@ -61,7 +61,7 @@ namespace SilkServer.SubServer
 
 		protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
 		{
-			Log.InfoFormat("Connection to Master Server closed (id={0})", ConnectionId);
+			Log.InfoFormat("Подключение к Master Server закрыто (id={0})", ConnectionId);
 
 			IsRegistered = false;
 			_application.ReconnectToMaster();
@@ -73,6 +73,8 @@ namespace SilkServer.SubServer
 
 			if (eventData.Parameters.ContainsKey((byte)UnityParameterCode.SubOperationCode) && EventHandlers.TryGetValue(Convert.ToByte(eventData.Parameters[(byte)UnityParameterCode.SubOperationCode]), out handler))
 			{
+				Log.DebugFormat("Found handler for OperationCode {0}", Convert.ToByte(eventData.Parameters[(byte)UnityParameterCode.SubOperationCode]));
+
 				handler.HandleEvent(eventData);
 			}
 		}
@@ -90,6 +92,8 @@ namespace SilkServer.SubServer
 
 			if (operationRequest.Parameters.ContainsKey((byte)UnityParameterCode.SubOperationCode) && RequestHandlers.TryGetValue(Convert.ToByte(operationRequest.Parameters[(byte)UnityParameterCode.SubOperationCode]), out handler))
 			{
+				Log.DebugFormat("Found handler for OperationCode {0}", Convert.ToByte(operationRequest.Parameters[(byte)UnityParameterCode.SubOperationCode]));
+
 				handler.HandleRequest(operationRequest);
 			}
 		}
@@ -104,6 +108,8 @@ namespace SilkServer.SubServer
 
 						if (operationResponse.Parameters.ContainsKey((byte)UnityParameterCode.SubOperationCode) && ResponseHandlers.TryGetValue(Convert.ToByte(operationResponse.Parameters[(byte)UnityParameterCode.SubOperationCode]), out handler))
 						{
+							Log.DebugFormat("Found handler for OperationCode {0}", Convert.ToByte(operationResponse.Parameters[(byte)UnityParameterCode.SubOperationCode]));
+
 							handler.HandleResponse(operationResponse);
 						}
 						else
@@ -125,7 +131,7 @@ namespace SilkServer.SubServer
 							return;
 						}
 
-						Log.Info("Connection to Master Server setup!");
+						Log.Info("Соеденение с Master Server установлено!");
 
 						IsRegistered = true;
 						break;

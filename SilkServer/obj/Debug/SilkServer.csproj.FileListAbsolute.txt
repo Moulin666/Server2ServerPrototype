@@ -4,3 +4,4 @@ C:\Users\admin\Desktop\Projects\Silk Time\Photon SDK\deploy\SilkServerFolder\bin
 C:\Users\admin\Desktop\Projects\Silk Time\Photon SDK\deploy\SilkServerFolder\bin\SilkServer.pdb
 C:\Users\admin\Desktop\Projects\Silk Time\SilkServer\SilkServer\obj\Debug\SilkServer.dll
 C:\Users\admin\Desktop\Projects\Silk Time\SilkServer\SilkServer\obj\Debug\SilkServer.pdb
+C:\Users\admin\Desktop\Projects\Silk Time\Photon SDK\deploy\SilkServerFolder\bin\log4net.config
