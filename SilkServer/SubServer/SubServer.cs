@@ -79,6 +79,8 @@ namespace SilkServer.SubServer
 			PublicIPAddress = SubServerSettings.Default.PublicIPAddress;
 			SubServerTcpPort = SubServerSettings.Default.SubServerTcpPort;
 			SubServerUdpPort = SubServerSettings.Default.SubServerUdpPort;
+
+			ServerId = Guid.NewGuid();
 		}
 
 		#endregion

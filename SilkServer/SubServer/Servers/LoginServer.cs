@@ -1,4 +1,5 @@
 ﻿using SilkServer.Server2Server;
+using SilkServer.SubServer.Handlers.LoginServer;
 using SilkServerCommon;
 
 namespace SilkServer.SubServer.Servers
@@ -18,8 +19,8 @@ namespace SilkServer.SubServer.Servers
 
 		protected override void AddHandlersToServerPeer(OutgoingMasterServerPeer serverPeer)
 		{
-			//serverPeer.RequestHandlers.Add((byte)UnitySubOperationCode.LoginSecurely, new LoginRequestHandler(serverPeer));
-			//serverPeer.RequestHandlers.Add((byte)UnitySubOperationCode.RegisterSecurely, new RegisterRequestHandler(serverPeer));
+			serverPeer.RequestHandlers.Add((byte)UnitySubOperationCode.LoginSecurely, new LoginRequestHandler(serverPeer));
+			serverPeer.RequestHandlers.Add((byte)UnitySubOperationCode.RegisterSecurely, new RegisterRequestHandler(serverPeer));
 		}
 
 		#endregion

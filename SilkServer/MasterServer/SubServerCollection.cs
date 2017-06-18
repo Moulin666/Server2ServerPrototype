@@ -37,8 +37,7 @@ namespace SilkServer.MasterServer
 			{
 				throw new InvalidOperationException("Server ID cannot be null");
 			}
-
-			if (subServerPeer.ServerId.HasValue)
+			else
 			{
 				lock (this)
 				{
@@ -49,28 +48,19 @@ namespace SilkServer.MasterServer
 						peer.Disconnect();
 						Remove(subServerPeer.ServerId.Value);
 
-						if (LoginServer != null)
+						if (subServerPeer.ServerId.Value == LoginServer.ServerId)
 						{
-							if (subServerPeer.ServerId.Value == LoginServer.ServerId)
-							{
-								LoginServer = null;
-							}
+							LoginServer = null;
 						}
 
-						if (LobbyServer != null)
+						if (subServerPeer.ServerId.Value == LobbyServer.ServerId)
 						{
-							if (subServerPeer.ServerId.Value == LobbyServer.ServerId)
-							{
-								LobbyServer = null;
-							}
+							LobbyServer = null;
 						}
 
-						if (GameServer != null)
+						if (subServerPeer.ServerId.Value == GameServer.ServerId)
 						{
-							if (subServerPeer.ServerId.Value == GameServer.ServerId)
-							{
-								GameServer = null;
-							}
+							GameServer = null;
 						}
 					}
 
