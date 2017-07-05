@@ -73,6 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameLogic\UnityClient.Character.cs" />
+    <Compile Include="GameLogic\World.cs" />
+    <Compile Include="GameLogic\ClientConnectedStatus.cs" />
     <Compile Include="MasterServer\IncomingSubServerPeer.cs" />
     <Compile Include="MasterServer\MasterServerSettings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,7 +83,7 @@
       <DependentUpon>MasterServerSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="MasterServer\SubServerCollection.cs" />
-    <Compile Include="MasterServer\UnityClient.cs" />
+    <Compile Include="GameLogic\UnityClient.cs" />
     <Compile Include="MasterServer\MasterServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server2Server\ErrorCode.cs" />

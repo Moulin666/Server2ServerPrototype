@@ -4,5 +4,6 @@
 	{
 		LoginSecurely,
 		RegisterSecurely,
+		IncorrectGameVersion
 	}
 }

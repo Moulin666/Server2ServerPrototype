@@ -10,9 +10,11 @@ namespace SilkServer.SubServer.NHibernate.Maps
 			Id(x => x.Id).Column("id");
 
 			Map(x => x.Username).Column("username");
+			Map(x => x.Email).Column("email");
+			Map(x => x.CharacterType).Column("character_type");
+			Map(x => x.Money).Column("money");
 			Map(x => x.Password).Column("password");
 			Map(x => x.Salt).Column("salt");
-			Map(x => x.Algorithm).Column("algorithm");
 
 			Map(x => x.Created).Column("created_at");
 			Map(x => x.Updated).Column("updated_at");

@@ -11,5 +11,6 @@
 
 		UsernameInUse = 1,
 		UsernameOrPasswordInvalid = 2,
+		EmailInUse = 3,
 	}
 }

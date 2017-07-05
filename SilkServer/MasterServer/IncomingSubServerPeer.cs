@@ -15,6 +15,8 @@ using PhotonHostRuntimeInterfaces;
 using SilkServer.Server2Server;
 using SilkServer.SubServer.Handlers;
 using SilkServer.Server2Server.Operations;
+using SilkServerCommon;
+using SilkServer.GameLogic;
 
 namespace SilkServer.MasterServer
 {
@@ -142,19 +144,48 @@ namespace SilkServer.MasterServer
 
 		protected override void OnOperationResponse(OperationResponse operationResponse, SendParameters sendParameters)
 		{
+			switch (operationResponse.OperationCode)
+			{
+				case (byte)UnitySubOperationCode.LoginSecurely:
+					HandleLoginRegisterSecurely(operationResponse, sendParameters);
+					break;
+				case (byte)UnitySubOperationCode.RegisterSecurely:
+					HandleLoginRegisterSecurely(operationResponse, sendParameters);
+					break;
+			}
+		}
+
+		#endregion
+
+		#region Handlers
+
+		private void HandleLoginRegisterSecurely(OperationResponse operationResponse, SendParameters sendParameters)
+		{
+			Log.Info(operationResponse.ReturnCode);
+
 			if (operationResponse.Parameters.ContainsKey((byte)ParameterCode.UserId))
 			{
-
 				UnityClient client;
 
 				string UserId = operationResponse.Parameters[(byte)ParameterCode.UserId].ToString();
 				_server.ConnectedClients.TryGetValue(new Guid(UserId), out client);
 
-
 				if (client != null)
 				{
-					operationResponse.Parameters.Remove((byte)ParameterCode.UserId);
+					var returnCode = (ErrorCode)operationResponse.ReturnCode;
+					if (returnCode == ErrorCode.Ok)
+					{
+						if (!World.Instance.TryJoin(client))
+						{
+							client.SendOperationResponse(new OperationResponse(operationResponse.OperationCode = (byte)UnitySubOperationCode.LoginSecurely)
+							{
+								ReturnCode = (byte)UnityErrorCode.UserAlreadyInGame
+							}, new SendParameters());
+							return;
+						}
+					}
 
+					operationResponse.Parameters.Remove((byte)ParameterCode.UserId);
 					client.SendOperationResponse(operationResponse, new SendParameters());
 				}
 			}
