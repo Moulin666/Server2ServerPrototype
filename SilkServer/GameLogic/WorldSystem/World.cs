@@ -1,10 +1,11 @@
 ﻿using ExitGames.Logging;
 using Photon.SocketServer;
+using SilkServer.GameLogic.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SilkServer.GameLogic
+namespace SilkServer.GameLogic.WorldSystem
 {
 	public class World : IDisposable
 	{

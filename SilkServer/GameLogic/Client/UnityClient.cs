@@ -3,16 +3,17 @@
  * roman.khusnetdinov
 */
 
-using ExitGames.Logging;
-
 using SilkServer.Server2Server;
 using SilkServerCommon;
+using SilkServer.GameLogic.WorldSystem;
+
+using ExitGames.Logging;
 using Photon.SocketServer;
 using PhotonHostRuntimeInterfaces;
 
 using System;
 
-namespace SilkServer.GameLogic
+namespace SilkServer.GameLogic.Client
 {
 	public partial class UnityClient : ClientPeer
 	{
@@ -57,18 +58,6 @@ namespace SilkServer.GameLogic
 				Log.DebugFormat("OperationRequest received: {0}", operationRequest.OperationCode);
 			}
 
-			var version = (string)operationRequest.Parameters[(byte)UnityParameterCode.GameVersion];
-			if (version != "0.01")
-			{
-				SendOperationResponse(new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.IncorrectGameVersion, operationRequest.Parameters)
-				{
-					DebugMessage = "Incorrect game version"
-				}, new SendParameters());
-
-				Disconnect();
-				return;
-			}
-
 			operationRequest.Parameters.Remove((byte)ParameterCode.UserId);
 			operationRequest.Parameters.Add((byte)ParameterCode.UserId, UserId.ToString());
 
@@ -76,6 +65,19 @@ namespace SilkServer.GameLogic
 			{
 				case ((byte)UnityClientCode.Login):
 					{
+						var version = (string)operationRequest.Parameters[(byte)UnityParameterCode.GameVersion];
+						if (version != "0.2")
+						{
+							SendOperationResponse(new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.LoginSecurely, operationRequest.Parameters)
+							{
+								ReturnCode = (byte)UnityErrorCode.IncorrectGameVersion,
+								DebugMessage = "Incorrect game version"
+							}, new SendParameters());
+
+							Disconnect();
+							return;
+						}
+
 						_server.SubServers.LoginServer.SendOperationRequest(operationRequest, sendParameters);
 						break;
 					}

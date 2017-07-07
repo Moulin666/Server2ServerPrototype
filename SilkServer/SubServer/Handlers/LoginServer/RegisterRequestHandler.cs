@@ -80,7 +80,7 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 							{
 								response = new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.RegisterSecurely, operationRequest.Parameters)
 								{
-									ReturnCode = (short)ErrorCode.UsernameInUse,
+									ReturnCode = (short)UnityErrorCode.UsernameInUse,
 									DebugMessage = "Username already in use"
 								};
 							}
@@ -88,7 +88,7 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 							{
 								response = new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.RegisterSecurely, operationRequest.Parameters)
 								{
-									ReturnCode = (short)ErrorCode.EmailInUse,
+									ReturnCode = (short)UnityErrorCode.EmailInUse,
 									DebugMessage = "Email already in use"
 								};
 							}

@@ -15,7 +15,7 @@ using ExitGames.Logging;
 using ExitGames.Logging.Log4Net;
 
 using LogManager = ExitGames.Logging.LogManager;
-using SilkServer.GameLogic;
+using SilkServer.GameLogic.Client;
 
 namespace SilkServer.MasterServer
 {

@@ -52,7 +52,7 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 								_peer.SendOperationResponse(new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.LoginSecurely, operationRequest.Parameters)
 								{
 									DebugMessage = "Succes",
-									ReturnCode = (short)ErrorCode.Ok
+									ReturnCode = (short)UnityErrorCode.ok
 								}, new SendParameters());
 								return;
 							}
@@ -66,7 +66,7 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 							_peer.SendOperationResponse(new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.LoginSecurely, operationRequest.Parameters)
 							{
 								DebugMessage = "Username or password invalid",
-								ReturnCode = (short)ErrorCode.UsernameOrPasswordInvalid
+								ReturnCode = (short)UnityErrorCode.UsernameOrPasswordInvalid
 							}, new SendParameters());
 							return;
 						}

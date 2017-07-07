@@ -10,7 +10,6 @@
 		Password,
 		Email,
 		CharacterType,
-
 		GameVersion
 	}
 }

@@ -2,8 +2,6 @@
 {
 	public enum ParameterCode : byte
 	{
-		UserId,
-		Username,
-		Password,
+		UserId
 	}
 }

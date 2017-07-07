@@ -16,7 +16,8 @@ using SilkServer.Server2Server;
 using SilkServer.SubServer.Handlers;
 using SilkServer.Server2Server.Operations;
 using SilkServerCommon;
-using SilkServer.GameLogic;
+using SilkServer.GameLogic.WorldSystem;
+using SilkServer.GameLogic.Client;
 
 namespace SilkServer.MasterServer
 {
@@ -147,10 +148,10 @@ namespace SilkServer.MasterServer
 			switch (operationResponse.OperationCode)
 			{
 				case (byte)UnitySubOperationCode.LoginSecurely:
-					HandleLoginRegisterSecurely(operationResponse, sendParameters);
+					HandleLoginSecurely(operationResponse, sendParameters);
 					break;
 				case (byte)UnitySubOperationCode.RegisterSecurely:
-					HandleLoginRegisterSecurely(operationResponse, sendParameters);
+					HandleRegisterSecurely(operationResponse, sendParameters);
 					break;
 			}
 		}
@@ -159,10 +160,8 @@ namespace SilkServer.MasterServer
 
 		#region Handlers
 
-		private void HandleLoginRegisterSecurely(OperationResponse operationResponse, SendParameters sendParameters)
+		private void HandleLoginSecurely(OperationResponse operationResponse, SendParameters sendParameters)
 		{
-			Log.Info(operationResponse.ReturnCode);
-
 			if (operationResponse.Parameters.ContainsKey((byte)ParameterCode.UserId))
 			{
 				UnityClient client;
@@ -172,12 +171,42 @@ namespace SilkServer.MasterServer
 
 				if (client != null)
 				{
-					var returnCode = (ErrorCode)operationResponse.ReturnCode;
-					if (returnCode == ErrorCode.Ok)
+					var returnCode = (UnityErrorCode)operationResponse.ReturnCode;
+					if (returnCode == UnityErrorCode.ok)
 					{
 						if (!World.Instance.TryJoin(client))
 						{
 							client.SendOperationResponse(new OperationResponse(operationResponse.OperationCode = (byte)UnitySubOperationCode.LoginSecurely)
+							{
+								ReturnCode = (byte)UnityErrorCode.UserAlreadyInGame
+							}, new SendParameters());
+							return;
+						}
+					}
+
+					operationResponse.Parameters.Remove((byte)ParameterCode.UserId);
+					client.SendOperationResponse(operationResponse, new SendParameters());
+				}
+			}
+		}
+
+		private void HandleRegisterSecurely(OperationResponse operationResponse, SendParameters sendParameters)
+		{
+			if (operationResponse.Parameters.ContainsKey((byte)ParameterCode.UserId))
+			{
+				UnityClient client;
+
+				string UserId = operationResponse.Parameters[(byte)ParameterCode.UserId].ToString();
+				_server.ConnectedClients.TryGetValue(new Guid(UserId), out client);
+
+				if (client != null)
+				{
+					var returnCode = (UnityErrorCode)operationResponse.ReturnCode;
+					if (returnCode == UnityErrorCode.ok)
+					{
+						if (!World.Instance.TryJoin(client))
+						{
+							client.SendOperationResponse(new OperationResponse(operationResponse.OperationCode = (byte)UnitySubOperationCode.RegisterSecurely)
 							{
 								ReturnCode = (byte)UnityErrorCode.UserAlreadyInGame
 							}, new SendParameters());

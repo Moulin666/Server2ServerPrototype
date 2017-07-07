@@ -3,7 +3,6 @@
 	public enum UnitySubOperationCode : byte
 	{
 		LoginSecurely,
-		RegisterSecurely,
-		IncorrectGameVersion
+		RegisterSecurely
 	}
 }

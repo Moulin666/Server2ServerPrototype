@@ -1,4 +1,4 @@
-﻿namespace SilkServer.GameLogic
+﻿namespace SilkServer.GameLogic.Client
 {
 	public partial class UnityClient
 	{

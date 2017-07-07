@@ -7,10 +7,6 @@
 		OperationInvalid = -2,
 		InternalServerError = -1,
 
-		Ok = 0,
-
-		UsernameInUse = 1,
-		UsernameOrPasswordInvalid = 2,
-		EmailInUse = 3,
+		Ok = 0
 	}
 }
