@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameLogic\Client\CharacterData.cs" />
     <Compile Include="GameLogic\Client\UnityClient.Character.cs" />
     <Compile Include="GameLogic\WorldSystem\World.cs" />
     <Compile Include="GameLogic\Client\ClientConnectedStatus.cs" />
@@ -85,6 +86,8 @@
     <Compile Include="MasterServer\SubServerCollection.cs" />
     <Compile Include="GameLogic\Client\UnityClient.cs" />
     <Compile Include="MasterServer\MasterServer.cs" />
+    <Compile Include="NHibernate\Maps\CharacterMap.cs" />
+    <Compile Include="NHibernate\Models\Character.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server2Server\ErrorCode.cs" />
     <Compile Include="Server2Server\Operations\OperationCode.cs" />
@@ -96,9 +99,9 @@
     <Compile Include="SubServer\Handlers\PhotonEventHandler.cs" />
     <Compile Include="SubServer\Handlers\PhotonRequestHandler.cs" />
     <Compile Include="SubServer\Handlers\PhotonResponseHandler.cs" />
-    <Compile Include="SubServer\NHibernate\Maps\UserMap.cs" />
-    <Compile Include="SubServer\NHibernate\Models\User.cs" />
-    <Compile Include="SubServer\NHibernate\NHibernateHelper.cs" />
+    <Compile Include="NHibernate\Maps\AccountMap.cs" />
+    <Compile Include="NHibernate\Models\Account.cs" />
+    <Compile Include="NHibernate\NHibernateHelper.cs" />
     <Compile Include="SubServer\OutgoingMasterServer.cs" />
     <Compile Include="SubServer\Servers\GameServer.cs" />
     <Compile Include="SubServer\Servers\LobbyServer.cs" />

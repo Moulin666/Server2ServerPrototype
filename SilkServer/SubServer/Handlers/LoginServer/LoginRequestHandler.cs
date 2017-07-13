@@ -12,12 +12,11 @@ using ExitGames.Logging;
 using Photon.SocketServer;
 using Photon.SocketServer.ServerToServer;
 
-using NHibernate.Criterion;
-
 using SilkServerCommon;
 using SilkServer.Server2Server;
-using SilkServer.SubServer.NHibernate;
-using SilkServer.SubServer.NHibernate.Models;
+using SilkServer.NHibernate;
+using SilkServer.NHibernate.Models;
+using System.Collections.Generic;
 
 namespace SilkServer.SubServer.Handlers.LoginServer
 {
@@ -38,7 +37,7 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 				{
 					using (var transaction = _session.BeginTransaction())
 					{
-						var user = _session.CreateCriteria<User>("plu").Add(Restrictions.Eq("plu.Username", username)).UniqueResult<User>();
+						var user = _session.QueryOver<Account>().Where(n => n.Username == username).SingleOrDefault();
 
 						try
 						{
@@ -49,12 +48,34 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 									Log.DebugFormat("User {0} is logged in. Password {1}", username, password);
 								}
 
-								_peer.SendOperationResponse(new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.LoginSecurely, operationRequest.Parameters)
+								var character = _session.QueryOver<Character>().Where(n => n.Account == user).SingleOrDefault();
+
+								if (character != null)
 								{
-									DebugMessage = "Succes",
-									ReturnCode = (short)UnityErrorCode.ok
-								}, new SendParameters());
-								return;
+									var parameters = new Dictionary<byte, object>
+									{
+										{ (byte)ParameterCode.UserId, operationRequest.Parameters[(byte)ParameterCode.UserId] },
+										{ (byte)UnityParameterCode.CharacterType, character.CharacterType },
+										{ (byte)UnityParameterCode.Money, character.Money },
+										{ (byte)UnityParameterCode.Exp, character.Exp },
+										{ (byte)UnityParameterCode.Wins, character.Wins },
+										{ (byte)UnityParameterCode.Defeats, character.Defeats },
+										{ (byte)UnityParameterCode.Kills, character.Kills },
+										{ (byte)UnityParameterCode.Deaths, character.Deaths }
+									};
+
+									var response = new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.LoginSecurely, parameters)
+									{
+										ReturnCode = (byte)UnityErrorCode.ok
+									};
+
+									_peer.SendOperationResponse(response, new SendParameters());
+									return;
+								}
+								else
+								{
+									Log.ErrorFormat("Can't get character from database. username - {0}", user.Username);
+								}
 							}
 							else
 							{

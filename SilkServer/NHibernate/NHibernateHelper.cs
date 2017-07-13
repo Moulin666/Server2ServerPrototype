@@ -2,7 +2,7 @@
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 
-namespace SilkServer.SubServer.NHibernate
+namespace SilkServer.NHibernate
 {
 	public class NHibernateHelper
 	{
@@ -27,12 +27,14 @@ namespace SilkServer.SubServer.NHibernate
 
 		private static void InitializeSessionFactory()
 		{
-			_sessionFactory = Fluently.Configure()
-				.Database(
-				MySQLConfiguration.Standard.ConnectionString(cs => cs.Server("localhost")
-				.Database("PirateLifeDB").Username("root")))
-				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<MasterServer.MasterServer>())
-				.BuildSessionFactory();
+			_sessionFactory = Fluently.Configure().Database(
+				MySQLConfiguration.Standard.ConnectionString(
+					cs => cs.Server("localhost").
+							 Database("SilkTimeDB").
+							 Username("server").
+							 Password("325862123"))
+				).Mappings(m => m.FluentMappings.AddFromAssemblyOf<NHibernateHelper>())
+									  .BuildSessionFactory();
 		}
 
 		public static ISession OpenSession()

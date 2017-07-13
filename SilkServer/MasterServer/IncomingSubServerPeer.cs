@@ -108,6 +108,23 @@ namespace SilkServer.MasterServer
 			SendOperationResponse(response, sendParameters);
 		}
 
+		protected override void OnOperationResponse(OperationResponse operationResponse, SendParameters sendParameters)
+		{
+			switch (operationResponse.OperationCode)
+			{
+				case (byte)UnitySubOperationCode.LoginSecurely:
+					HandleLoginSecurely(operationResponse, sendParameters);
+					break;
+				case (byte)UnitySubOperationCode.RegisterSecurely:
+					HandleRegisterSecurely(operationResponse, sendParameters);
+					break;
+			}
+		}
+
+		#endregion
+
+		#region Handlers
+
 		private OperationResponse HandleRegisterSubServerRequest(OperationRequest operationRequest)
 		{
 			var registerRequest = new RegisterSubServer(Protocol, operationRequest);
@@ -142,23 +159,6 @@ namespace SilkServer.MasterServer
 
 			return new OperationResponse(operationRequest.OperationCode);
 		}
-
-		protected override void OnOperationResponse(OperationResponse operationResponse, SendParameters sendParameters)
-		{
-			switch (operationResponse.OperationCode)
-			{
-				case (byte)UnitySubOperationCode.LoginSecurely:
-					HandleLoginSecurely(operationResponse, sendParameters);
-					break;
-				case (byte)UnitySubOperationCode.RegisterSecurely:
-					HandleRegisterSecurely(operationResponse, sendParameters);
-					break;
-			}
-		}
-
-		#endregion
-
-		#region Handlers
 
 		private void HandleLoginSecurely(OperationResponse operationResponse, SendParameters sendParameters)
 		{

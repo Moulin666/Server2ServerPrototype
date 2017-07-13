@@ -87,8 +87,8 @@ namespace SilkServer.SubServer
             foreach(KeyValuePair<byte, object> keyValuePair in operationRequest.Parameters)
             {
                 Log.DebugFormat("{0} - {1}", (UnityParameterCode)keyValuePair.Key, keyValuePair.Value);
-            }
-            */
+            } */
+
 			Log.Info(operationRequest.Parameters[(byte)UnityParameterCode.SubOperationCode]);
 
 			if (operationRequest.Parameters.ContainsKey((byte)UnityParameterCode.SubOperationCode) && RequestHandlers.TryGetValue(Convert.ToByte(operationRequest.Parameters[(byte)UnityParameterCode.SubOperationCode]), out handler))

@@ -12,12 +12,10 @@ using ExitGames.Logging;
 using Photon.SocketServer;
 using Photon.SocketServer.ServerToServer;
 
-using NHibernate.Criterion;
-
 using SilkServerCommon;
 using SilkServer.Server2Server;
-using SilkServer.SubServer.NHibernate;
-using SilkServer.SubServer.NHibernate.Models;
+using SilkServer.NHibernate;
+using SilkServer.NHibernate.Models;
 
 namespace SilkServer.SubServer.Handlers.LoginServer
 {
@@ -40,25 +38,38 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 				{
 					using (var transaction = _session.BeginTransaction())
 					{
-						var user = _session.CreateCriteria<User>("plu").Add(Restrictions.Eq("plu.Username", username)).UniqueResult<User>();
-						var mail = _session.CreateCriteria<User>("plu").Add(Restrictions.Eq("plu.Email", email)).UniqueResult<User>();
+						var user = _session.QueryOver<Account>().Where(n => n.Username == username).SingleOrDefault();
+						var mail = _session.QueryOver<Account>().Where(n => n.Email == email).SingleOrDefault();
 
 						if (user == null && mail == null)
 						{
 							var salt = Guid.NewGuid().ToString().Replace("-", "");
-							User NewUser = new User()
+							Account NewAccount = new Account()
 							{
 								Username = username,
 								Email = email,
-								CharacterType = characterType,
-								Money = 5000,
 								Password = BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(salt + password))).Replace("-", ""),
 								Salt = salt,
 								Created = DateTime.Now,
 								Updated = DateTime.Now
 							};
 
-							_session.Save(NewUser);
+							Character NewCharacter = new Character()
+							{
+								Account = NewAccount,
+								CharacterType = characterType,
+								Money = 5000,
+								Exp = 0,
+								Wins = 0,
+								Defeats = 0,
+								Kills = 0,
+								Deaths = 0,
+								Created = DateTime.Now,
+								Updated = DateTime.Now
+							};
+
+							_session.Save(NewAccount);
+							_session.Save(NewCharacter);
 							transaction.Commit();
 
 							if (Log.IsDebugEnabled)

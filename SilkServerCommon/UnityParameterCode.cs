@@ -10,6 +10,13 @@
 		Password,
 		Email,
 		CharacterType,
-		GameVersion
+		GameVersion,
+
+		Money,
+		Exp,
+		Wins,
+		Defeats,
+		Kills,
+		Deaths,
 	}
 }
