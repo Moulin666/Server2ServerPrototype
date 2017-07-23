@@ -77,6 +77,8 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 								Log.DebugFormat("User {0} registered. Password {1}", username, password);
 							}
 
+							operationRequest.Parameters.Add((byte)UnityParameterCode.Money, NewCharacter.Money);
+
 							_peer.SendOperationResponse(new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.RegisterSecurely, operationRequest.Parameters)
 							{
 								ReturnCode = (short)ErrorCode.Ok

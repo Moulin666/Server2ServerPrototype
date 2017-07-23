@@ -73,8 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameLogic\Client\CharacterData.cs" />
     <Compile Include="GameLogic\Client\UnityClient.Character.cs" />
+    <Compile Include="GameLogic\Client\UnityClient.Handlers.cs" />
+    <Compile Include="GameLogic\WorldSystem\ChatCommands.cs" />
     <Compile Include="GameLogic\WorldSystem\World.cs" />
     <Compile Include="GameLogic\Client\ClientConnectedStatus.cs" />
     <Compile Include="MasterServer\IncomingSubServerPeer.cs" />
@@ -88,14 +89,15 @@
     <Compile Include="MasterServer\MasterServer.cs" />
     <Compile Include="NHibernate\Maps\CharacterMap.cs" />
     <Compile Include="NHibernate\Models\Character.cs" />
+    <Compile Include="Operations\Responses\ChatMessageResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server2Server\ErrorCode.cs" />
     <Compile Include="Server2Server\Operations\OperationCode.cs" />
     <Compile Include="Server2Server\Operations\RegisterSubServer.cs" />
     <Compile Include="Server2Server\ParameterCode.cs" />
     <Compile Include="Server2Server\ServerType.cs" />
-    <Compile Include="SubServer\Handlers\LoginServer\LoginRequestHandler.cs" />
-    <Compile Include="SubServer\Handlers\LoginServer\RegisterRequestHandler.cs" />
+    <Compile Include="SubServer\Handlers\DataBaseServer\LoginRequestHandler.cs" />
+    <Compile Include="SubServer\Handlers\DataBaseServer\RegisterRequestHandler.cs" />
     <Compile Include="SubServer\Handlers\PhotonEventHandler.cs" />
     <Compile Include="SubServer\Handlers\PhotonRequestHandler.cs" />
     <Compile Include="SubServer\Handlers\PhotonResponseHandler.cs" />
@@ -103,9 +105,7 @@
     <Compile Include="NHibernate\Models\Account.cs" />
     <Compile Include="NHibernate\NHibernateHelper.cs" />
     <Compile Include="SubServer\OutgoingMasterServer.cs" />
-    <Compile Include="SubServer\Servers\GameServer.cs" />
-    <Compile Include="SubServer\Servers\LobbyServer.cs" />
-    <Compile Include="SubServer\Servers\LoginServer.cs" />
+    <Compile Include="SubServer\Servers\DataBaseServer.cs" />
     <Compile Include="SubServer\SubServer.cs" />
     <Compile Include="SubServer\SubServerSettings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -114,8 +114,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SubServer\Handlers\GameServer\" />
-    <Folder Include="SubServer\Handlers\LobbyServer\" />
+    <Folder Include="Operations\Events\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

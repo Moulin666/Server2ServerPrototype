@@ -112,6 +112,7 @@ namespace SilkServer.MasterServer
 		{
 			switch (operationResponse.OperationCode)
 			{
+				// DataBase Server
 				case (byte)UnitySubOperationCode.LoginSecurely:
 					HandleLoginSecurely(operationResponse, sendParameters);
 					break;
@@ -182,6 +183,14 @@ namespace SilkServer.MasterServer
 							}, new SendParameters());
 							return;
 						}
+
+						client.Username = (string)operationResponse.Parameters[(byte)UnityParameterCode.Username];
+						client.CharacterType = (int)operationResponse.Parameters[(byte)UnityParameterCode.CharacterType];
+						client.Money = (int)operationResponse.Parameters[(byte)UnityParameterCode.Money];
+						client.Wins = (int)operationResponse.Parameters[(byte)UnityParameterCode.Wins];
+						client.Defeats = (int)operationResponse.Parameters[(byte)UnityParameterCode.Defeats];
+						client.Kills = (int)operationResponse.Parameters[(byte)UnityParameterCode.Kills];
+						client.Deaths = (int)operationResponse.Parameters[(byte)UnityParameterCode.Deaths];
 					}
 
 					operationResponse.Parameters.Remove((byte)ParameterCode.UserId);
@@ -212,6 +221,14 @@ namespace SilkServer.MasterServer
 							}, new SendParameters());
 							return;
 						}
+
+						client.Username = (string)operationResponse.Parameters[(byte)UnityParameterCode.Username];
+						client.CharacterType = (int)operationResponse.Parameters[(byte)UnityParameterCode.CharacterType];
+						client.Money = (int)operationResponse.Parameters[(byte)UnityParameterCode.Money];
+						client.Wins = (int)operationResponse.Parameters[(byte)UnityParameterCode.Wins];
+						client.Defeats = (int)operationResponse.Parameters[(byte)UnityParameterCode.Defeats];
+						client.Kills = (int)operationResponse.Parameters[(byte)UnityParameterCode.Kills];
+						client.Deaths = (int)operationResponse.Parameters[(byte)UnityParameterCode.Deaths];
 					}
 
 					operationResponse.Parameters.Remove((byte)ParameterCode.UserId);

@@ -55,6 +55,8 @@ namespace SilkServer.SubServer.Handlers.LoginServer
 									var parameters = new Dictionary<byte, object>
 									{
 										{ (byte)ParameterCode.UserId, operationRequest.Parameters[(byte)ParameterCode.UserId] },
+
+										{ (byte)UnityParameterCode.Username, username },
 										{ (byte)UnityParameterCode.CharacterType, character.CharacterType },
 										{ (byte)UnityParameterCode.Money, character.Money },
 										{ (byte)UnityParameterCode.Exp, character.Exp },

@@ -1,9 +1,9 @@
 ﻿namespace SilkServerCommon
 {
+	// Сервера доступные для клиента
 	public enum UnityClientCode : byte
 	{
-		Login,
-		Lobby,
-		Game
+		Master,
+		DataBase,
 	}
 }

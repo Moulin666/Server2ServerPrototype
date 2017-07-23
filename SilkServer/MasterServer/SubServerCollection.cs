@@ -23,9 +23,7 @@ namespace SilkServer.MasterServer
 
 		#region Servers
 
-		public IncomingSubServerPeer LoginServer { get; protected set; }
-		public IncomingSubServerPeer LobbyServer { get; protected set; }
-		public IncomingSubServerPeer GameServer { get; protected set; }
+		public IncomingSubServerPeer DataBaseServer { get; protected set; }
 
 		#endregion
 
@@ -48,19 +46,9 @@ namespace SilkServer.MasterServer
 						peer.Disconnect();
 						Remove(subServerPeer.ServerId.Value);
 
-						if (subServerPeer.ServerId.Value == LoginServer.ServerId)
+						if (subServerPeer.ServerId.Value == DataBaseServer.ServerId)
 						{
-							LoginServer = null;
-						}
-
-						if (subServerPeer.ServerId.Value == LobbyServer.ServerId)
-						{
-							LobbyServer = null;
-						}
-
-						if (subServerPeer.ServerId.Value == GameServer.ServerId)
-						{
-							GameServer = null;
+							DataBaseServer = null;
 						}
 					}
 
@@ -73,73 +61,35 @@ namespace SilkServer.MasterServer
 
 		public void ResetServers()
 		{
-			if (LoginServer != null && LoginServer.ServerType != ServerType.Login)
+			if (DataBaseServer != null && DataBaseServer.ServerType != ServerType.DataBase)
 			{
-				IncomingSubServerPeer peer = Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.Login).FirstOrDefault();
+				IncomingSubServerPeer peer = Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.DataBase).FirstOrDefault();
 
 				if (peer != null)
 				{
-					LoginServer = peer;
-				}
-			}
-
-			if (LobbyServer != null && LobbyServer.ServerType != ServerType.Lobby)
-			{
-				IncomingSubServerPeer peer = Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.Lobby).FirstOrDefault();
-
-				if(peer != null)
-				{
-					LobbyServer = peer;
-				}
-			}
-
-			if (GameServer != null && GameServer.ServerType != ServerType.GameServer)
-			{
-				IncomingSubServerPeer peer = Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.GameServer).FirstOrDefault();
-
-				if (peer != null)
-				{
-					GameServer = peer;
+					DataBaseServer = peer;
 				}
 			}
 
 			// ========================================================================= \\
-			if (LoginServer == null)
-			{
-				LoginServer =
-					Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.Login).FirstOrDefault() ??
-					Values.Where(subServerPeer => (subServerPeer.ServerType & ServerType.Login) == ServerType.Login).FirstOrDefault();
-			}
 
-			if (LobbyServer == null)
+			if (DataBaseServer == null)
 			{
-				LobbyServer =
-					Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.Lobby).FirstOrDefault() ??
-					Values.Where(subServerPeer => (subServerPeer.ServerType & ServerType.Lobby) == ServerType.Lobby).FirstOrDefault();
-			}
-
-			if (GameServer == null)
-			{
-				GameServer =
-					Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.GameServer).FirstOrDefault() ??
-					Values.Where(subServerPeer => (subServerPeer.ServerType & ServerType.GameServer) == ServerType.GameServer).FirstOrDefault();
+				DataBaseServer =
+					Values.Where(subServerPeer => subServerPeer.ServerType == ServerType.DataBase).FirstOrDefault() ??
+					Values.Where(subServerPeer => (subServerPeer.ServerType & ServerType.DataBase) == ServerType.DataBase).FirstOrDefault();
 			}
 
 			// ========================================================================= \\
-			if (LoginServer != null)
+
+			Log.Debug("~~~~~~~~~~~~~~~~~~~~~~~~[SERVER LIST]~~~~~~~~~~~~~~~~~~~~~~~~");
+
+			if (DataBaseServer != null)
 			{
-				Log.Debug("LoginServer: " + LoginServer.ConnectionId);
+				Log.Debug("DataBaseServer: " + DataBaseServer.ConnectionId);
 			}
 
-			if (LobbyServer != null)
-			{
-				Log.Debug("LobbyServer: " + LobbyServer.ConnectionId);
-			}
-
-			if (GameServer != null)
-			{
-				Log.Debug("GameServer: " + GameServer.ConnectionId);
-			}
+			Log.Debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		}
 
 		public void OnDisconnect(IncomingSubServerPeer subServerPeer)
@@ -161,19 +111,9 @@ namespace SilkServer.MasterServer
 				{
 					Remove(id);
 
-					if (LoginServer != null && id == LoginServer.ServerId)
+					if (DataBaseServer != null && id == DataBaseServer.ServerId)
 					{
-						LoginServer = null;
-					}
-
-					if (LobbyServer != null && id == LobbyServer.ServerId)
-					{
-						LobbyServer = null;
-					}
-
-					if (GameServer != null && id == GameServer.ServerId)
-					{
-						GameServer = null;
+						DataBaseServer = null;
 					}
 
 					ResetServers();

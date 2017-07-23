@@ -42,6 +42,7 @@
     <Compile Include="UnityClientCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityErrorCode.cs" />
+    <Compile Include="UnityEventCode.cs" />
     <Compile Include="UnityParameterCode.cs" />
     <Compile Include="UnitySubOperationCode.cs" />
   </ItemGroup>

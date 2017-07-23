@@ -4,13 +4,13 @@ using SilkServerCommon;
 
 namespace SilkServer.SubServer.Servers
 {
-	public class LoginServer : SubServer
+	public class DataBaseServer : SubServer
 	{
 		#region Constructors and Destructors
 
-		public LoginServer()
+		public DataBaseServer()
 		{
-			ServerType = ServerType.Login;
+			ServerType = ServerType.DataBase;
 		}
 
 		#endregion

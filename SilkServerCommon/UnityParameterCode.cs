@@ -1,5 +1,6 @@
 ﻿namespace SilkServerCommon
 {
+	// Параметры для передачи
 	public enum UnityParameterCode : byte
 	{
 		UserId,
@@ -18,5 +19,7 @@
 		Defeats,
 		Kills,
 		Deaths,
+
+		ChatMessage,
 	}
 }

@@ -63,34 +63,29 @@ namespace SilkServer.GameLogic.Client
 
 			switch (operationRequest.OperationCode)
 			{
-				case ((byte)UnityClientCode.Login):
+				case ((byte)UnityClientCode.DataBase):
 					{
-						var version = (string)operationRequest.Parameters[(byte)UnityParameterCode.GameVersion];
-						if (version != "0.2")
+						if (CheckVersion((string)operationRequest.Parameters[(byte)UnityParameterCode.GameVersion]))
 						{
-							SendOperationResponse(new OperationResponse(operationRequest.OperationCode = (byte)UnitySubOperationCode.LoginSecurely, operationRequest.Parameters)
+							_server.SubServers.DataBaseServer.SendOperationRequest(operationRequest, sendParameters);
+						}
+						else
+						{
+							SendOperationResponse(new OperationResponse(operationRequest.OperationCode = operationRequest.OperationCode, operationRequest.Parameters)
 							{
 								ReturnCode = (byte)UnityErrorCode.IncorrectGameVersion,
 								DebugMessage = "Incorrect game version"
 							}, new SendParameters());
 
 							Disconnect();
-							return;
 						}
-
-						_server.SubServers.LoginServer.SendOperationRequest(operationRequest, sendParameters);
 						break;
 					}
-				case ((byte)UnityClientCode.Lobby):
+				case ((byte)UnityClientCode.Master):
 					{
-						_server.SubServers.LobbyServer.SendOperationRequest(operationRequest, sendParameters);
-						break;
+						MasterServerHandler(operationRequest, sendParameters);
 					}
-				case ((byte)UnityClientCode.Game):
-					{
-						_server.SubServers.GameServer.SendOperationRequest(operationRequest, sendParameters);
-						break;
-					}
+					break;
 			}
 		}
 
@@ -107,9 +102,28 @@ namespace SilkServer.GameLogic.Client
 
 		#region Methods
 
+		/// <summary>
+		/// Установить статус подключения игроку
+		/// </summary>
+		/// <param name="newStatus">Новый статус</param>
 		public void SetClientConnectedStatus(ClientConnectedStatus newStatus)
 		{
 			ClientConnectedStatus = newStatus;
+		}
+
+		/// <summary>
+		/// Проверка версии клиента
+		/// </summary>
+		/// <param name="version">Версия клиента</param>
+		/// <returns>False - если версия не совпадает. True - если версия совпадает</returns>
+		public bool CheckVersion(string version)
+		{
+			if (version == "0.2")
+			{
+				return true;
+			}
+			else
+				return false;
 		}
 
 		#endregion
